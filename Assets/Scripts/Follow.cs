@@ -12,7 +12,6 @@ public class Follow : MonoBehaviour {
     Rigidbody rb;
 
     float destTimer = 0;
-    Vector3 curveMidPoint;
 
 	void Start () {
         rb = GetComponent<Rigidbody>();
@@ -20,24 +19,21 @@ public class Follow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (destTimer < Time.timeSinceLevelLoad)
-        {
-            curveMidPoint = Util.MidAngle(HumanMovement.Instance.humanModel.transform, 
-                HumanMovement.Instance.humanModel.transform.right, offset);
-            destination = (Util.RandAlongFlatCurve(curveMidPoint, transform.position.y, offset) - transform.position).normalized;
-            lookRotation = Quaternion.LookRotation(destination);
-
-            destTimer = Time.timeSinceLevelLoad + destTimerAmount;
-        }
+        destination = Util.MidAngle(HumanMovement.Instance.humanModel.transform,
+                            HumanMovement.Instance.humanModel.transform.right, transform.position.y, offset);
     }
 
     private void FixedUpdate()
     {
-        Debug.Log(Vector3.Distance(transform.position, HumanMovement.Instance.humanModel.transform.position));
-        if (Vector3.Distance(transform.position, HumanMovement.Instance.humanModel.transform.position) > range)
+        /// Change to only worry about movement not player rotation
+        ///
+        ///
+        if (Vector3.Distance(transform.position, destination) > range)
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * rotateSpeed);
-            rb.MovePosition(rb.position + (transform.forward * moveSpeed));
+            lookRotation = Quaternion.FromToRotation(transform.forward, destination - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotateSpeed * Time.deltaTime);
+            Vector3 changePos = Vector3.Lerp(rb.position, destination, moveSpeed);
+            rb.MovePosition(changePos);
         }
     }
 }

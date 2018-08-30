@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class Util  {
-
-    public static Vector2 CalcBezier(Vector2 p0, Vector2 p1, Vector2 p2, float t)
+    public static Vector3 MidAngle(Transform t1, Vector3 dir, float yValue, float length)
     {
-        return new Vector2((1 - t) * (1 - t) * p0.x + 2 * (1 - t) * t * p1.x + t * t * p2.x,
-                            (1 - t) * (1 - t) * p0.y + 2 * (1 - t) * t * p1.y + t * t * p2.y);
-    }
+        float xValue = t1.position.x + t1.forward.x;
+        float zValue = t1.position.z + t1.forward.z;
 
-    public static Vector3 MidAngle(Transform t1, Vector3 dir, float length)
-    {
-        return ((t1.position + t1.forward) + dir * length);
+        return (new Vector3(xValue, yValue, zValue) + dir * length);
     }
 
     public static Vector3 RandAlongFlatCurve(Vector3 origin, float objY, float offset)
