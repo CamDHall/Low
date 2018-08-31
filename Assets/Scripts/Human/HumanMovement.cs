@@ -9,8 +9,9 @@ public class HumanMovement : MonoBehaviour
     public float moveSpeed, rotateSpeed, stumbleTimerAmount, stumbleSpeed;
     public GameObject humanModel;
     public bool mainCharacter;
+    public Vector3 movementVector;
 
-    Vector3 movementVector, stumbleDir;
+    Vector3 stumbleDir;
     GameObject camObj;
     float xCameraOffset, zValue, startStumbleTimer, stumblingTimer;
     [HideInInspector] public Vector3 camFinalPos;
@@ -44,7 +45,7 @@ public class HumanMovement : MonoBehaviour
         {
             stumbling = true;
             CalculateStubmleDir();
-            stumblingTimer = Time.timeSinceLevelLoad + 2;
+            stumblingTimer = Time.timeSinceLevelLoad + 1;
         }
 
         if (!stumbling)
@@ -80,10 +81,5 @@ public class HumanMovement : MonoBehaviour
     void CalculateStubmleDir()
     {
         stumbleDir = new Vector3(movementVector.x * stumbleSpeed, 0, movementVector.z * stumbleSpeed);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawCube(newPos, new Vector3(1, 1, 1));
     }
 }

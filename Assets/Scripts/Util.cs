@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class Util  {
-    public static Vector3 MidAngle(Transform t1, Vector3 dir, float yValue, float length)
+    public static Vector3 MidAngle(Transform t1, Vector3 _right, float yValue, float length)
     {
         float xValue = t1.position.x + t1.forward.x;
         float zValue = t1.position.z + t1.forward.z;
 
-        return (new Vector3(xValue, yValue, zValue) + dir * length);
+        return (new Vector3(xValue, yValue, zValue) + _right * length);
     }
 
     public static Vector3 RandAlongFlatCurve(Vector3 origin, float objY, float offset)

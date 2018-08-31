@@ -293,10 +293,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   rotateSpeed: 0.5
-  stumbleTimerAmount: 5
+  stumbleTimerAmount: 12
   stumbleSpeed: 2
   humanModel: {fileID: 558336761}
   mainCharacter: 0
+  movementVector: {x: 0, y: 0, z: 0}
   camFinalPos: {x: 0, y: 0, z: 0}
 --- !u!4 &388914236
 Transform:
@@ -627,10 +628,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tempGizmo: {fileID: 1731951465868486, guid: b07b06c9a4467a74aa03c2502fcb23cd, type: 2}
   destTimerAmount: 3
-  offset: 1.5
+  offset: 2
   moveSpeed: 0.03
   rotateSpeed: 5
-  range: 1.25
+  range: 0.5
 --- !u!54 &1195782571
 Rigidbody:
   m_ObjectHideFlags: 0
